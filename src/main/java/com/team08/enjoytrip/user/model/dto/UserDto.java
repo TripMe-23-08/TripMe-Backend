@@ -3,6 +3,7 @@ package com.team08.enjoytrip.user.model.dto;
 import lombok.*;
 
 @Data
+@AllArgsConstructor
 public class UserDto {
     private int id;
     private String email;
