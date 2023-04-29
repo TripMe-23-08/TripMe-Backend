@@ -1,8 +1,38 @@
 package com.team08.enjoytrip.config;
 
+import com.team08.enjoytrip.common.interceptor.AuthWithSessionInterceptor;
+import com.team08.enjoytrip.common.interceptor.AuthWithTokenInterceptor;
+import java.util.Arrays;
+import java.util.List;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebMvcConfiguration implements WebMvcConfigurer {
+    private final List<String> PATTERNS = Arrays.asList("/users/**","/articles/**");
+    private AuthWithSessionInterceptor authWithSessionInterceptor;
+
+    public WebMvcConfiguration(AuthWithSessionInterceptor authWithSessionInterceptor) {
+        this.authWithSessionInterceptor = authWithSessionInterceptor;
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(authWithSessionInterceptor).addPathPatterns(PATTERNS);
+        // TODO: Auth(Token), then change to below
+        // registry.addInterceptor(authWithTokenInterceptor).addPathPatterns(PATTERNS);
+    }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        // TODO: setting pattern CORS
+    }
+
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/").setViewName("index");
+    }
 }

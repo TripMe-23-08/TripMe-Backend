@@ -3,7 +3,7 @@ package com.team08.enjoytrip.user.model.dto;
 import lombok.*;
 
 @Data
-public class User {
+public class UserDto {
     private int id;
     private String email;
     private String password;

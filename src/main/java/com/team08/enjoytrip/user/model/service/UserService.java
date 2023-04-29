@@ -1,4 +1,10 @@
 package com.team08.enjoytrip.user.model.service;
 
+import com.team08.enjoytrip.user.exception.UserNotFoundException;
+import com.team08.enjoytrip.user.model.dto.UserDto;
+
 public interface UserService {
+    void signup(); // 회원가입
+    UserDto login(String email, String password) throws UserNotFoundException; // 로그인
+    void logout(); // 로그아웃
 }
