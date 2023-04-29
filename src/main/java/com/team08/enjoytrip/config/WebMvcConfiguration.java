@@ -1,7 +1,6 @@
 package com.team08.enjoytrip.config;
 
-import com.team08.enjoytrip.common.interceptor.AuthWithSessionInterceptor;
-import com.team08.enjoytrip.common.interceptor.AuthWithTokenInterceptor;
+import com.team08.enjoytrip.common.interceptor.AuthWithSessionAjaxInterceptor;
 import java.util.Arrays;
 import java.util.List;
 import org.springframework.context.annotation.Configuration;
@@ -13,15 +12,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebMvcConfiguration implements WebMvcConfigurer {
     private final List<String> PATTERNS = Arrays.asList("/users/**","/articles/**");
-    private AuthWithSessionInterceptor authWithSessionInterceptor;
+    private AuthWithSessionAjaxInterceptor authWithSessionAjaxInterceptor;
 
-    public WebMvcConfiguration(AuthWithSessionInterceptor authWithSessionInterceptor) {
-        this.authWithSessionInterceptor = authWithSessionInterceptor;
+    public WebMvcConfiguration(AuthWithSessionAjaxInterceptor authWithSessionAjaxInterceptor) {
+        this.authWithSessionAjaxInterceptor = authWithSessionAjaxInterceptor;
     }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(authWithSessionInterceptor).addPathPatterns(PATTERNS);
+        registry.addInterceptor(authWithSessionAjaxInterceptor).addPathPatterns(PATTERNS);
         // TODO: Auth(Token), then change to below
         // registry.addInterceptor(authWithTokenInterceptor).addPathPatterns(PATTERNS);
     }

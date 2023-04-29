@@ -9,9 +9,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.mvc.WebContentInterceptor;
 
-// TODO: Auth(Token), then change AuthWithSessionInterceptor to below
-//@Component
-public class AuthWithTokenInterceptor extends WebContentInterceptor {
+// TODO: Auth(Token), then change AuthWithSessionAjaxInterceptor to AuthWithTokenAjaxInterceptor
+@Component
+public class AuthWithSessionAjaxInterceptor extends WebContentInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws ServletException {

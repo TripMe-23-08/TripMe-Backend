@@ -1,7 +1,10 @@
 package com.team08.enjoytrip.user.exception;
 
-public class UserNotFoundException extends Exception{
+import com.team08.enjoytrip.common.exception.EnjoyTripApiException;
+import org.springframework.http.HttpStatus;
+
+public class UserNotFoundException extends EnjoyTripApiException {
     public UserNotFoundException(String message) {
-        super(message);
+        super(HttpStatus.BAD_REQUEST,message);
     }
 }

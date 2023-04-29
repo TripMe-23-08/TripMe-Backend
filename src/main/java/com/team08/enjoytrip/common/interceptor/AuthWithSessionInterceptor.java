@@ -6,8 +6,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
-
-@Component
+@Deprecated
+//@Component
 public class AuthWithSessionInterceptor implements HandlerInterceptor {
 
     @Override

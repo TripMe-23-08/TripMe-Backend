@@ -18,8 +18,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public void signup(UserDto userDto) throws UserAlreadyExistException {
         if (checkIfExist(userDto)) {
-            throw new UserAlreadyExistException(userDto.getName() + "로 이미 가입되어있습니다.");
+            throw new UserAlreadyExistException("["+userDto.getEmail() + "] 로 이미 가입되어있습니다.");
         }
+        userDto.setPassword(BCrypt.hashpw(userDto.getPassword(),BCrypt.gensalt()));
         userRepository.save(userDto);
     }
 

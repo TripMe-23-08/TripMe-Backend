@@ -6,6 +6,8 @@ import com.team08.enjoytrip.user.exception.UserNotFoundException;
 import com.team08.enjoytrip.user.model.dto.LoginRequestDto;
 import com.team08.enjoytrip.user.model.dto.UserDto;
 import com.team08.enjoytrip.user.model.service.UserService;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,21 +24,25 @@ public class UserController { // http://localhost:8080/api/v1/
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<ResponseDto> signUp(@RequestBody UserDto userDto) throws UserAlreadyExistException {
+    public ResponseEntity<ResponseDto> signUp(@RequestBody @Valid UserDto userDto) throws UserAlreadyExistException {
         log.debug("[POST] /signup :"+userDto.toString());
+        //TODO: Valid UserDto ; email, password not empty & satisfy password generation rules
         userService.signup(userDto);
         return new ResponseEntity<>(new ResponseDto("회원가입에 성공하셨습니다.",null), HttpStatus.CREATED);
 
     }
     @PostMapping("/login")
-    public ResponseEntity<ResponseDto> login(@RequestBody LoginRequestDto requestDto) throws UserNotFoundException {
+    public ResponseEntity<ResponseDto> login(@RequestBody @Valid LoginRequestDto requestDto) throws UserNotFoundException {
+        log.debug("[POST] /login :"+requestDto.toString());
+
         userService.login(requestDto.getEmail(),requestDto.getPassword());
-        return new ResponseEntity<>(new ResponseDto("로그인에 실패하셨습니다.",null), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new ResponseDto("로그인에 성공하셨습니다.",null), HttpStatus.OK);
     }
 
     @GetMapping("/logout")
-    public ResponseEntity<ResponseDto> logout(){
-        userService.logout();
-        return new ResponseEntity<>(new ResponseDto("잘못된 요청입니다.",null), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<ResponseDto> logout(HttpSession session){
+        session.invalidate();
+        //userService.logout();
+        return new ResponseEntity<>(new ResponseDto("로그인에 성공하셨습니다.",null), HttpStatus.OK);
     }
 }

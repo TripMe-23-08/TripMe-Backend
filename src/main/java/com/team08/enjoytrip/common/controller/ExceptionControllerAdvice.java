@@ -16,7 +16,7 @@ import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-//@RestControllerAdvice
+@RestControllerAdvice
 public class ExceptionControllerAdvice extends ResponseEntityExceptionHandler {
     private final Logger logger = LoggerFactory.getLogger(ExceptionControllerAdvice.class);
 
@@ -65,6 +65,7 @@ public class ExceptionControllerAdvice extends ResponseEntityExceptionHandler {
                 servletWebRequest.getRequest().getRequestURI(),
                 servletWebRequest.getRequest().getRemoteAddr()
         );
-        return ResponseEntity.badRequest().body(new ErrorResponseDto(ex.getMessage(), errorDetail));
+        String message = ex.getBindingResult().getFieldErrors().get(0).getDefaultMessage();
+        return ResponseEntity.badRequest().body(new ErrorResponseDto(message, errorDetail));
     }
 }
