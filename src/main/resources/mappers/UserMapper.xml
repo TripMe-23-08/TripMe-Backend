@@ -10,17 +10,35 @@
         <result column="password" property="password" />
     </resultMap>
 
-
     <select id="findByEmail" parameterType="string" resultMap="usermap" >
         SELECT *
         FROM user
         WHERE email=#{email}
     </select>
 
-    <insert id="save" parameterType="UserDto" useGeneratedKeys="true" keyProperty="id">
+    <select id="findById" parameterType="int" resultType="userDto" >
+        SELECT *
+        FROM user
+        WHERE id=#{id}
+    </select>
+
+    <insert id="save" parameterType="userDto" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO user(email, password, name, nick_name, address, phone_number)
         values (#{email}, #{password}, #{name}, #{nickName}, #{address}, #{phoneNumber});
     </insert>
 
+    <update id="update" parameterType="userDto">
+        UPDATE user
+        <trim prefix="set" suffixOverrides=",">
+            <if test="address != null">address = #{address},</if>
+            <if test="phoneNumber != null">phone_number = #{phoneNumber},</if>
+        </trim>
+        where id=#{id}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        DELETE from user
+        where id=#{id}
+    </delete>
 
 </mapper>

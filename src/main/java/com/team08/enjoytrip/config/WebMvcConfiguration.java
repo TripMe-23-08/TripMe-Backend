@@ -12,6 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebMvcConfiguration implements WebMvcConfigurer {
     private final List<String> PATTERNS = Arrays.asList("/users/**","/articles/**");
+    /*
     private AuthWithSessionAjaxInterceptor authWithSessionAjaxInterceptor;
 
     public WebMvcConfiguration(AuthWithSessionAjaxInterceptor authWithSessionAjaxInterceptor) {
@@ -24,10 +25,11 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
         // TODO: Auth(Token), then change to below
         // registry.addInterceptor(authWithTokenInterceptor).addPathPatterns(PATTERNS);
     }
-
+    */
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         // TODO: setting pattern CORS
+        registry.addMapping("http://localhost:3000/**");
     }
 
     @Override
