@@ -4,8 +4,9 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import lombok.*;
 
-@Data
-@AllArgsConstructor
+@Getter
+@Setter
+@ToString
 public class UserDto {
     private int id;
     @Email
@@ -16,4 +17,16 @@ public class UserDto {
     private String nickName;
     private String address;
     private String phoneNumber;
+    public UserDto(){
+    }
+    @Builder
+    public UserDto(int id, String email, String password, String name, String nickName, String address, String phoneNumber) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.nickName = nickName;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+    }
 }

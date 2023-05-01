@@ -42,9 +42,13 @@ class UserRepositoryTest {
     @Transactional
     public void addUser() {
         // before
-        UserDto userDto = new UserDto(
-                2, "b@gmail.com", "b", "b", "닉네임b",
-                null, null);
+        UserDto userDto = UserDto.builder()
+                .id(2)
+                .email("b@gmail.com")
+                .password("b")
+                .name("b")
+                .nickName("닉네임b")
+                .build();
         userRepository.save(userDto);
 
         // when // then
@@ -56,9 +60,13 @@ class UserRepositoryTest {
     @Transactional
     public void updateUser() {
         // before
-        UserDto userDto = new UserDto(
-                2, "b@gmail.com", "b", "b", "닉네임b",
-                null, null);
+        UserDto userDto = UserDto.builder()
+                .id(2)
+                .email("b@gmail.com")
+                .password("b")
+                .name("b")
+                .nickName("닉네임b")
+                .build();
         userRepository.save(userDto);
 
         // when
@@ -69,7 +77,7 @@ class UserRepositoryTest {
         UserDto updatedUser = userRepository.findByEmail(userDto.getEmail());
 
         // then
-        assertThat(updatedUser).equals(savedUser);
+        assertThat(updatedUser).isEqualTo(savedUser);
     }
 
     @Test
@@ -77,8 +85,12 @@ class UserRepositoryTest {
     @Transactional
     public void deleteUser() {
         // before
-        UserDto userDto = new UserDto(44,"test@gmail.com","test","test",
-                null, null,null);
+        UserDto userDto = UserDto.builder()
+                .id(44)
+                .email("test@gmail.com")
+                .password("test")
+                .name("test")
+                .build();
         userRepository.save(userDto);
 
         // when
