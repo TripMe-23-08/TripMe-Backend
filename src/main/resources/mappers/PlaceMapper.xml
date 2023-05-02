@@ -11,10 +11,10 @@
         <result column="latitude" property="latitude" />
         <result column="address" property="address" />
         <result column="category" property="category" />
-        <result column="imgUrl" property="imgUrl" />
-        <result column="imgUrl2" property="imgUrl2" />
-        <result column="sidoCode" property="sidoCode" />
-        <result column="gugunCode" property="gugunCode" />
+        <result column="img_url" property="imgUrl" />
+        <result column="img_url2" property="imgUrl2" />
+        <result column="sido_code" property="sidoCode" />
+        <result column="gugun_code" property="gugunCode" />
     </resultMap>
 
 
