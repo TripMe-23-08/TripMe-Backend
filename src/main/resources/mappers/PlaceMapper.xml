@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team08.enjoytrip.place.model.repository.PlaceRepository">
+    <!---->
+    <resultMap type="placeDto" id="placemap">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="longitude" property="longitude" />
+        <result column="latitude" property="latitude" />
+        <result column="address" property="address" />
+        <result column="category" property="category" />
+        <result column="img_url" property="imgUrl" />
+        <result column="img_url2" property="imgUrl2" />
+        <result column="sido_code" property="sidoCode" />
+        <result column="gugun_code" property="gugunCode" />
+    </resultMap>
+
+
+    <select id="findById" parameterType="int" resultType="placeDto" >
+        SELECT *
+        FROM place
+        WHERE id=#{id}
+    </select>
+
+    <select id="findAll" parameterType="searchCondition" resultMap="placemap" >
+        SELECT *
+        FROM place
+        <trim prefix="where" prefixOverrides="and">
+            <if test="sidoCode != null">
+                sido_code = #{sidoCode}
+                <if test=" gugunCode != null">and gugun_code = #{gugunCode}</if>
+            </if>
+            <if test="category != null">and category = #{category}</if>
+        </trim>
+    </select>
+
+
+</mapper>

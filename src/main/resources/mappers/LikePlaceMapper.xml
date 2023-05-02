@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team08.enjoytrip.place.model.repository.LikePlaceRepository">
+    <!---->
+    <resultMap type="placeDto" id="userlikedplacemap">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="longitude" property="longitude" />
+        <result column="latitude" property="latitude" />
+        <result column="address" property="address" />
+        <result column="category" property="category" />
+        <result column="img_url" property="imgUrl" />
+        <result column="img_url2" property="imgUrl2" />
+        <result column="sido_code" property="sidoCode" />
+        <result column="gugun_code" property="gugunCode" />
+    </resultMap>
+
+    <resultMap type="likePlaceDto" id="likeplacemap">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="place_id" property="placeId" />
+    </resultMap>
+
+    <select id="findById" parameterType="int" resultMap="likeplacemap" >
+        SELECT
+        *
+        FROM userlikedplace where id=#{id};
+    </select>
+
+    <select id="findAllByUserId" parameterType="int" resultMap="userlikedplacemap" >
+        SELECT
+        <!--all placeDto-->
+        p.id id, name, longitude, latitude, address, category, img_url, img_url2, sido_code, gugun_code
+        FROM userlikedplace up join place p on up.place_id = p.id where user_id=#{userId};
+
+    </select>
+
+    <insert id="save" parameterType="likePlaceDto" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO userlikedplace(place_id, user_id)
+        values (#{placeId}, #{userId})
+    </insert>
+
+    <delete id="delete" parameterType="int">
+        DELETE from userlikedplace
+        where id=#{id}
+    </delete>
+
+</mapper>
