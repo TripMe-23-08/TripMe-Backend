@@ -4,31 +4,23 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team08.enjoytrip.tripRoute.model.repository.TripRouteRepository">
 
-    <resultMap type="TripPlaceDto" id="tripPlaceMap">
-        <id column="tp_id" property="id" />
+    <resultMap type="tripPlaceDto" id="tripPlaceMap">
+        <id column="id" property="id" />
         <result column="place_id" property="placeId" />
         <result column="trip_route_id" property="tripRouteId" />
         <result column="trip_day" property="tripDay" />
         <result column="trip_order" property="tripOrder" />
     </resultMap>
 
-    <resultMap type="TripRouteDto" id="tripRouteMap">
+
+    <resultMap type="tripRouteDto" id="tripRouteMap">
         <id column="id" property="id" />
         <result column="name" property="name" />
         <result column="created_at" property="createdAt" />
         <result column="user_id" property="userId"/>
         <result column="trip_img_url" property="tripImgUrl"/>
-<!--        <collection property="tripPlaces"  javaType="list" ofType="tripPlaceDto" resultMap="tripPlaceMap"  />-->
-        <collection property="tripPlaces" ofType="TripPlaceDto">
-            <id column="tp_id" property="id" />
-            <result column="place_id" property="placeId" />
-            <result column="trip_route_id" property="tripRouteId" />
-            <result column="trip_day" property="tripDay" />
-            <result column="trip_order" property="tripOrder" />
-        </collection>
-
+        <collection property="tripPlaces" column="id" ofType="tripPlaceDto" javaType="ArrayList" select="getAllPlacesByRouteId"/>
     </resultMap>
-
 
 
     <insert id="create" parameterType="tripRouteDto" useGeneratedKeys="true" keyProperty="id">
@@ -37,68 +29,35 @@
     </insert>
 
 
-
     <select id="get" parameterType="int" resultMap="tripRouteMap">
-
-        SELECT  tr.id id, tr.`name` `name`, tr.created_at created_at, tr.user_id user_id,
-        tr.trip_img_url trip_img_url, tp.id tp_id, tp.place_id place_id,
-        tp.trip_route_id trip_route_id, tp.trip_day trip_day, tp.trip_order trip_order
-        FROM tripRoute tr
-        LEFT JOIN tripPlace tp ON tr.id = tp.trip_route_id
-        WHERE tr.id = #{id};
+        select id, name, created_at, user_id, trip_img_url
+        from tripRoute
+        where id = #{id}
     </select>
 
-    <!--
 
-       SELECT  tr.id id, tr.`name` `name`, tr.created_at created_at, tr.user_id user_id,
-                tr.trip_img_url trip_img_url, tp.id tp_id, tp.place_id place_id,
-                tp.trip_route_id trip_route_id, tp.trip_day trip_day, tp.trip_order trip_order
-        FROM tripRoute tr
-        LEFT JOIN tripPlace tp ON tr.id = tp.trip_route_id
-        WHERE tr.id = #{id};
-
-
-    -->
-
-
-
-    <!-- need to modify from here -->
-    <!--
-    <resultMap type="userDto" id="usermap">
-        <result column="id" property="id" />
-        <result column="email" property="email" />
-        <result column="password" property="password" />
-    </resultMap>
-
-    <select id="findByEmail" parameterType="string" resultMap="usermap" >
-        SELECT *
-        FROM user
-        WHERE email=#{email}
+    <select id="getAll" resultMap="tripRouteMap">
+        select id, name, created_at, user_id, trip_img_url
+        from tripRoute
     </select>
 
-    <select id="findById" parameterType="int" resultType="userDto" >
-        SELECT *
-        FROM user
-        WHERE id=#{id}
+
+    <select id="getAllPlacesByRouteId" parameterType="int" resultMap="tripPlaceMap">
+        SELECT id, place_id, trip_route_id, trip_day, trip_order FROM tripPlace
+        WHERE trip_route_id = #{id};
     </select>
 
-    <insert id="save" parameterType="userDto" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO user(email, password, name, nick_name, address, phone_number)
-        values (#{email}, #{password}, #{name}, #{nickName}, #{address}, #{phoneNumber});
-    </insert>
 
-    <update id="update" parameterType="userDto">
-        UPDATE user
-        <trim prefix="set" suffixOverrides=",">
-            <if test="address != null">address = #{address},</if>
-            <if test="phoneNumber != null">phone_number = #{phoneNumber},</if>
-        </trim>
-        where id=#{id}
+    <update id="update" parameterType="tripRouteDto">
+        UPDATE tripRoute
+        SET name = #{name}, trip_img_url = #{tripImgUrl}
+        WHERE id = #{id}
     </update>
 
+
     <delete id="delete" parameterType="int">
-        DELETE from user
-        where id=#{id}
+        DELETE FROM tripRoute
+        WHERE id = #{id}
     </delete>
-    -->
+
 </mapper>

@@ -21,7 +21,7 @@ public class TripRouteServiceImpl implements TripRouteService{
 
     @Override
     public List<TripRouteDto> getAll() {
-        return null;
+        return tripRouteRepository.getAll();
     }
 
     @Override
@@ -43,11 +43,34 @@ public class TripRouteServiceImpl implements TripRouteService{
 
     @Override
     public void update(TripRouteDto tripRouteDto) {
+        List<TripPlaceDto> originalPlaces = tripRouteRepository.getAllPlacesByRouteId(tripRouteDto.getId());
+        for (int i=0; i<originalPlaces.size(); ++i) {
+            TripPlaceDto tripPlaceDto = originalPlaces.get(i);
+            tripPlaceRepository.delete(tripPlaceDto.getId());
+        }
 
+        for (int i=0; i<tripRouteDto.getTripPlaces().size(); ++i) {
+            TripPlaceDto tripPlaceDto = tripRouteDto.getTripPlaces().get(i);
+            tripPlaceDto.setTripRouteId(tripRouteDto.getId());
+            tripPlaceRepository.create(tripPlaceDto);
+        }
+
+        tripRouteRepository.update(tripRouteDto);
     }
 
     @Override
     public void delete(int id) {
+        TripRouteDto tripRouteDto = tripRouteRepository.get(id);
+        for (int i=0; i<tripRouteDto.getTripPlaces().size(); ++i) {
+            TripPlaceDto tripPlaceDto = tripRouteDto.getTripPlaces().get(i);
+            tripPlaceRepository.delete(tripPlaceDto.getId());
+        }
 
+        tripRouteRepository.delete(id);
+    }
+
+    @Override
+    public List<TripPlaceDto> getAllPlacesByRouteId(int id) {
+        return tripRouteRepository.getAllPlacesByRouteId(id);
     }
 }

@@ -1,5 +1,6 @@
 package com.team08.enjoytrip.tripRoute.model.service;
 
+import com.team08.enjoytrip.tripRoute.model.dto.TripPlaceDto;
 import com.team08.enjoytrip.tripRoute.model.dto.TripRouteDto;
 
 import java.util.List;
@@ -10,4 +11,6 @@ public interface TripRouteService {
     void create(TripRouteDto tripRouteDto);
     void update(TripRouteDto tripRouteDto);
     void delete(int id);
+
+    List<TripPlaceDto> getAllPlacesByRouteId(int id);
 }

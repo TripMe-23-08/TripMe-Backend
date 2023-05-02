@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequestMapping("/trip-routes")
@@ -28,6 +30,16 @@ public class TripRouteController {
         return new ResponseEntity<>(new ResponseDto("trip route 조회 완료 ", tripRouteDto), HttpStatus.OK);
     }
 
+    @GetMapping
+    public ResponseEntity<ResponseDto> get() {
+        log.debug("[GET] /trip-routes/");
+
+        List<TripRouteDto> tripRouteDtoList = tripRouteService.getAll();
+
+        return new ResponseEntity<>(new ResponseDto("모든 trip route 조회 완료", tripRouteDtoList), HttpStatus.OK);
+
+    }
+
     @PostMapping
     public ResponseEntity<ResponseDto> create(@RequestBody TripRouteDto tripRouteDto) {
         log.debug("[POST] /trip-routes/");
@@ -42,6 +54,33 @@ public class TripRouteController {
         log.debug(tripRouteDto.toString());
         tripRouteService.create(tripRouteDto);
         return new ResponseEntity<>(new ResponseDto("trip 생성 완료", null), HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ResponseDto> update(@PathVariable int id, @RequestBody TripRouteDto tripRouteDto) {
+        log.debug("[PUT] /trip-routes/");
+
+        tripRouteDto.setId(id);
+        log.debug(tripRouteDto.toString());
+
+        String testUrl = "mod example url path here";
+        int testUserId = 3;
+
+        tripRouteDto.setTripImgUrl(testUrl);
+        tripRouteDto.setUserId(testUserId);
+
+        tripRouteService.update(tripRouteDto);
+
+        return new ResponseEntity<>(new ResponseDto("trip route 수정 완료 ", null), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ResponseDto> delete(@PathVariable int id) {
+        log.debug("[DELETE] /trip-routes/" + id);
+
+        tripRouteService.delete(id);
+
+        return new ResponseEntity<>(new ResponseDto("trip route 삭제 완료 ", null), HttpStatus.OK);
     }
 
 }

@@ -19,4 +19,10 @@
     </insert>
 
 
+    <delete id="delete" parameterType="int">
+        DELETE FROM tripplace
+        WHERE id = #{id}
+    </delete>
+
+
 </mapper>

@@ -1,5 +1,6 @@
 package com.team08.enjoytrip.tripRoute.model.repository;
 
+import com.team08.enjoytrip.tripRoute.model.dto.TripPlaceDto;
 import com.team08.enjoytrip.tripRoute.model.dto.TripRouteDto;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -12,4 +13,6 @@ public interface TripRouteRepository {
     void create(TripRouteDto tripRouteDto);
     void update(TripRouteDto tripRouteDto);
     void delete(int id);
+    List<TripPlaceDto> getAllPlacesByRouteId(int id);
+
 }
