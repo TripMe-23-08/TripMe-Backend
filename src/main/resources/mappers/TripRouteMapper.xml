@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team08.enjoytrip.tripRoute.model.repository.TripRouteRepository">
+
+    <resultMap type="tripPlaceDto" id="tripPlaceMap">
+        <id column="id" property="id" />
+        <result column="place_id" property="placeId" />
+        <result column="trip_route_id" property="tripRouteId" />
+        <result column="trip_day" property="tripDay" />
+        <result column="trip_order" property="tripOrder" />
+    </resultMap>
+
+
+    <resultMap type="tripRouteDto" id="tripRouteMap">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="created_at" property="createdAt" />
+        <result column="user_id" property="userId"/>
+        <result column="trip_img_url" property="tripImgUrl"/>
+        <collection property="tripPlaces" column="id" ofType="tripPlaceDto" javaType="ArrayList" select="getAllPlacesByRouteId"/>
+    </resultMap>
+
+
+    <insert id="create" parameterType="tripRouteDto" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO triproute (name, created_at, user_id, trip_img_url)
+        VALUES (#{name}, NOW(), #{userId}, #{tripImgUrl})
+    </insert>
+
+
+    <select id="get" parameterType="int" resultMap="tripRouteMap">
+        select id, name, created_at, user_id, trip_img_url
+        from tripRoute
+        where id = #{id}
+    </select>
+
+
+    <select id="getAll" resultMap="tripRouteMap">
+        select id, name, created_at, user_id, trip_img_url
+        from tripRoute
+    </select>
+
+
+    <select id="getAllPlacesByRouteId" parameterType="int" resultMap="tripPlaceMap">
+        SELECT id, place_id, trip_route_id, trip_day, trip_order FROM tripPlace
+        WHERE trip_route_id = #{id};
+    </select>
+
+
+    <update id="update" parameterType="tripRouteDto">
+        UPDATE tripRoute
+        SET name = #{name}, trip_img_url = #{tripImgUrl}
+        WHERE id = #{id}
+    </update>
+
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM tripRoute
+        WHERE id = #{id}
+    </delete>
+
+</mapper>
