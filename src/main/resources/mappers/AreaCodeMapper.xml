@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team08.enjoytrip.areaCode.model.repository.AreaCodeRepository">
+    <resultMap type="gugunInfoDto" id="gugunInfo">
+        <result column="gugun_code" property="gugunCode" />
+        <result column="gugun_name" property="gugunName" />
+    </resultMap>
+
+    <resultMap type="areaCodeDto" id="areaCodeMap">
+        <id column="sido_code" property="sidoCode" />
+        <result column="sido_name" property="sidoName" />
+        <collection property="relatedGugun" ofType="gugunInfoDto" resultMap="gugunInfo">
+            <id column="gugun_code" property="gugunCode" />
+            <result column="gugun_name" property="gugunName" />
+        </collection>
+    </resultMap>
+
+
+    <select id="findAreaCode" parameterType="int" resultMap="areaCodeMap" >
+        select s.sido_code, s.sido_name, g.gugun_code, g.gugun_name
+        from sido s inner join gugun g on s.sido_code = g.sido_code
+        where s.sido_code = #{sidoCode}
+        order by s.sido_code, g.gugun_code
+    </select>
+
+
+
+    <select id="findAllAreaCodes"  resultMap="areaCodeMap" >
+        select s.sido_code, s.sido_name, g.gugun_code, g.gugun_name
+        from sido s inner join gugun g on s.sido_code = g.sido_code
+        order by s.sido_code, g.gugun_code
+    </select>
+</mapper>
