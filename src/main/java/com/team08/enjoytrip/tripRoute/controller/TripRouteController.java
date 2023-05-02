@@ -19,6 +19,15 @@ public class TripRouteController {
         this.tripRouteService = tripRouteService;
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ResponseDto> get(@PathVariable int id) {
+        log.debug("[GET] /trip-routes/" + id);
+
+        TripRouteDto tripRouteDto = tripRouteService.get(id);
+
+        return new ResponseEntity<>(new ResponseDto("trip route 조회 완료 ", tripRouteDto), HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<ResponseDto> create(@RequestBody TripRouteDto tripRouteDto) {
         log.debug("[POST] /trip-routes/");

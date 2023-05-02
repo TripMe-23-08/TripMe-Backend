@@ -1,4 +1,4 @@
-package com.team08.enjoytrip.place.model.dto;
+package com.team08.enjoytrip.tripRoute.model.dto;
 
 import lombok.Builder;
 import lombok.Getter;

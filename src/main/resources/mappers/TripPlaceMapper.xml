@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.team08.enjoytrip.place.model.repository.TripPlaceRepository">
+<mapper namespace="com.team08.enjoytrip.tripRoute.model.repository.TripPlaceRepository">
 
     <resultMap type="tripPlaceDto" id="tripPlaceMap">
         <result column="id" property="id" />

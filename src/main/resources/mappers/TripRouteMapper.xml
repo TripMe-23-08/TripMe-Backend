@@ -4,32 +4,63 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team08.enjoytrip.tripRoute.model.repository.TripRouteRepository">
 
-    <resultMap type="tripRouteDto" id="tripRouteMap">
-        <result column="id" property="id" />
-        <result column="name" property="name" />
-        <result column="created_at" property="createdAt" />
-        <result column="user_id" property="userId" />
-        <result column="trip_img_url" property="tripImageUrl" />
-    </resultMap>
-
-    <resultMap type="tripPlaceDto" id="tripPlaceMap">
-        <result column="id" property="id" />
+    <resultMap type="TripPlaceDto" id="tripPlaceMap">
+        <id column="tp_id" property="id" />
         <result column="place_id" property="placeId" />
-        <result column="trip_route_id" property="TripRouteId" />
+        <result column="trip_route_id" property="tripRouteId" />
         <result column="trip_day" property="tripDay" />
         <result column="trip_order" property="tripOrder" />
     </resultMap>
 
-<!--    List<TripRouteDto> getAll();-->
-<!--    TripRouteDto get(int id);-->
-<!--    void create(TripRouteDto tripRouteDto);-->
-<!--    void update(TripRouteDto tripRouteDto);-->
-<!--    void delete(int id);-->
+    <resultMap type="TripRouteDto" id="tripRouteMap">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="created_at" property="createdAt" />
+        <result column="user_id" property="userId"/>
+        <result column="trip_img_url" property="tripImgUrl"/>
+<!--        <collection property="tripPlaces"  javaType="list" ofType="tripPlaceDto" resultMap="tripPlaceMap"  />-->
+        <collection property="tripPlaces" ofType="TripPlaceDto">
+            <id column="tp_id" property="id" />
+            <result column="place_id" property="placeId" />
+            <result column="trip_route_id" property="tripRouteId" />
+            <result column="trip_day" property="tripDay" />
+            <result column="trip_order" property="tripOrder" />
+        </collection>
+
+    </resultMap>
+
+
 
     <insert id="create" parameterType="tripRouteDto" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO triproute (name, created_at, user_id, trip_img_url)
         VALUES (#{name}, NOW(), #{userId}, #{tripImgUrl})
     </insert>
+
+
+
+    <select id="get" parameterType="int" resultMap="tripRouteMap">
+
+        SELECT  tr.id id, tr.`name` `name`, tr.created_at created_at, tr.user_id user_id,
+        tr.trip_img_url trip_img_url, tp.id tp_id, tp.place_id place_id,
+        tp.trip_route_id trip_route_id, tp.trip_day trip_day, tp.trip_order trip_order
+        FROM tripRoute tr
+        LEFT JOIN tripPlace tp ON tr.id = tp.trip_route_id
+        WHERE tr.id = #{id};
+    </select>
+
+    <!--
+
+       SELECT  tr.id id, tr.`name` `name`, tr.created_at created_at, tr.user_id user_id,
+                tr.trip_img_url trip_img_url, tp.id tp_id, tp.place_id place_id,
+                tp.trip_route_id trip_route_id, tp.trip_day trip_day, tp.trip_order trip_order
+        FROM tripRoute tr
+        LEFT JOIN tripPlace tp ON tr.id = tp.trip_route_id
+        WHERE tr.id = #{id};
+
+
+    -->
+
+
 
     <!-- need to modify from here -->
     <!--

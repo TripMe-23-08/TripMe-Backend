@@ -1,6 +1,6 @@
-package com.team08.enjoytrip.place.model.repository;
+package com.team08.enjoytrip.tripRoute.model.repository;
 
-import com.team08.enjoytrip.place.model.dto.TripPlaceDto;
+import com.team08.enjoytrip.tripRoute.model.dto.TripPlaceDto;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

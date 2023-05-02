@@ -1,7 +1,7 @@
 package com.team08.enjoytrip.tripRoute.model.service;
 
-import com.team08.enjoytrip.place.model.dto.TripPlaceDto;
-import com.team08.enjoytrip.place.model.repository.TripPlaceRepository;
+import com.team08.enjoytrip.tripRoute.model.dto.TripPlaceDto;
+import com.team08.enjoytrip.tripRoute.model.repository.TripPlaceRepository;
 import com.team08.enjoytrip.tripRoute.model.dto.TripRouteDto;
 import com.team08.enjoytrip.tripRoute.model.repository.TripRouteRepository;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ public class TripRouteServiceImpl implements TripRouteService{
 
     @Override
     public TripRouteDto get(int id) {
-        return null;
+        return tripRouteRepository.get(id);
     }
 
     @Override
