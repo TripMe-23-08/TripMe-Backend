@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team08.enjoytrip.post.model.repository.PostRepository">
+    <!-- -->
+    <resultMap type="postDto" id="postmap">
+        <result column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="created_at" property="createdAt" />
+        <result column="updated_at" property="updatedAt" />
+        <result column="title" property="title" />
+        <result column="content" property="content" />
+        <result column="view" property="view" />
+        <result column="triproute_id" property="tripRouteId" />
+    </resultMap>
+
+
+    <insert id="save" parameterType="postDto" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO post(user_id, created_at, updated_at, title, content, view, triproute_id)
+        VALUES (#{userId}, NOW(), NOW(), #{title}, #{content}, #{view}, #{tripRouteId});
+    </insert>
+
+    <update id="update" parameterType="postDto">
+        UPDATE post
+        <trim prefix="set" suffixOverrides=",">
+            <if test="title != null">title = #{title},</if>
+            <if test="content != null">content = #{content},</if>
+            <if test="tripRouteId != null">triproute_id = #{tripRouteId},</if>
+            updated_at = NOW()
+        </trim>
+        where id=#{id}
+    </update>
+
+    <select id="findById" parameterType="int" resultMap="postmap" >
+        SELECT *
+        FROM post
+        WHERE id=#{id}
+    </select>
+
+    <select id="findAll" resultMap="postmap" >
+        SELECT *
+        FROM post
+    </select>
+
+    <delete id="delete" parameterType="int">
+        DELETE from post
+        where id=#{id}
+    </delete>
+
+</mapper>
