@@ -48,6 +48,8 @@ public class PostServiceImpl implements PostService {
         postRepository.delete(articleId);
     }
 
+
+
     private boolean isExist(PostDto postDto) {
         PostDto data = postRepository.findById(postDto.getId());
         if (data != null) {
