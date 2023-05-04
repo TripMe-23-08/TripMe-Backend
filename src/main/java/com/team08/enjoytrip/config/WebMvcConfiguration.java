@@ -26,6 +26,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
         // registry.addInterceptor(authWithTokenInterceptor).addPathPatterns(PATTERNS);
     }
     */
+    //TODO: JWTFilter
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         // TODO: setting pattern CORS

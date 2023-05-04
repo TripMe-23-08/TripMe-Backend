@@ -1,8 +1,10 @@
 package com.team08.enjoytrip.user.controller;
 
 import com.team08.enjoytrip.common.dto.ResponseDto;
+import com.team08.enjoytrip.user.exception.UserAlreadyExistException;
 import com.team08.enjoytrip.user.model.dto.UserDto;
 import com.team08.enjoytrip.user.model.service.UserService;
+import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,13 @@ public class UserController {
 
     public UserController(UserService userService) {
         this.userService = userService;
+    }
+    @PostMapping
+    public ResponseEntity<ResponseDto> signUp(@RequestBody @Valid UserDto userDto) throws UserAlreadyExistException {
+        log.debug("[POST] /signup :"+userDto.toString());
+        //TODO: Valid UserDto ; email, password not empty & satisfy password generation rules
+        userService.signup(userDto);
+        return new ResponseEntity<>(new ResponseDto("회원가입에 성공하셨습니다.",null), HttpStatus.CREATED);
     }
 
     @GetMapping("/{userId}")
