@@ -1,4 +1,4 @@
-package com.team08.enjoytrip.user.model.dto;
+package com.team08.enjoytrip.auth.model.dto;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

@@ -1,22 +1,17 @@
 package com.team08.enjoytrip.user.model.repository;
 
-import com.team08.enjoytrip.user.exception.UserAlreadyExistException;
 import com.team08.enjoytrip.user.model.dto.UserDto;
 import lombok.extern.slf4j.Slf4j;
-import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.platform.commons.logging.Logger;
 import org.junit.platform.commons.logging.LoggerFactory;
-import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.sql.DataSource;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -25,8 +20,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @DisplayName("UserRepository : CRUD")
-class UserRepositoryTest {
-    private static final Logger logger = LoggerFactory.getLogger(UserRepositoryTest.class);
+class AuthRepositoryTest {
+    private static final Logger logger = LoggerFactory.getLogger(AuthRepositoryTest.class);
 
     @Autowired
     UserRepository userRepository;

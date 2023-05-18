@@ -34,20 +34,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto login(String email, String password) throws UserNotFoundException {
-        UserDto userDto = userRepository.findByEmail(email);
-        if (BCrypt.checkpw(password, userDto.getPassword())) {
-            return userDto;
-        }
-        throw new UserNotFoundException("유저를 찾을 수 없습니다.");
-    }
-
-    @Override
-    public void logout() {
-
-    }
-
-    @Override
     public UserDto get(int userId) throws UserNotFoundException {
         UserDto userDto = userRepository.findById(userId);
         if (userDto != null) {
