@@ -1,6 +1,5 @@
 package com.team08.enjoytrip.config;
 
-import com.team08.enjoytrip.common.interceptor.AuthWithSessionAjaxInterceptor;
 import java.util.Arrays;
 import java.util.List;
 import org.springframework.context.annotation.Configuration;

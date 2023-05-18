@@ -3,12 +3,12 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team08.enjoytrip.auth.model.repository.AuthRepository">
-    <!---->
     <resultMap type="userDto" id="usermap">
         <result column="id" property="id" />
         <result column="email" property="email" />
         <result column="password" property="password" />
     </resultMap>
+
 
     <select id="findByEmail" parameterType="string" resultMap="usermap" >
         SELECT *
@@ -16,5 +16,25 @@
         WHERE email=#{email}
     </select>
 
+    <!--auth DB 추가 userId, refreshToken 저장-->
+    <resultMap type="jwtDto" id="userToken" >
+        <result column="user_id" property="userId" />
+        <result column="refresh_token" property="refreshToken" />
+    </resultMap>
 
+    <insert id="save" parameterType="jwtDto" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO auth(user_id, refresh_token)
+        values (#{userId}, #{refreshToken})
+        ON DUPLICATE KEY UPDATE refresh_token = #{refreshToken};
+    </insert>
+
+    <delete id="delete" parameterType="int">
+     DELETE from auth
+     where user_id=#{userId}
+    </delete>
+    <select id="findById" parameterType="int" resultType="string" >
+        SELECT refresh_token
+        FROM auth
+        WHERE user_id=#{userId}
+    </select>
 </mapper>
