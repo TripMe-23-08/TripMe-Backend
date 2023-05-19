@@ -24,7 +24,7 @@ public class TripRouteServiceImpl implements TripRouteService{
         return tripRouteRepository.getAll();
     }
 
-    @Override
+    @Override //TODO: 고쳐야하는 부분
     public TripRouteDto get(int id) {
         return tripRouteRepository.get(id);
     }
