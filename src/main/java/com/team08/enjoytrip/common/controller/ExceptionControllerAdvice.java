@@ -16,7 +16,7 @@ import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-//@RestControllerAdvice
+@RestControllerAdvice
 public class ExceptionControllerAdvice extends ResponseEntityExceptionHandler {
     private final Logger logger = LoggerFactory.getLogger(ExceptionControllerAdvice.class);
 
@@ -24,6 +24,7 @@ public class ExceptionControllerAdvice extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleApiException(Exception exception, WebRequest request) {
         logger.error("Exception 발생 : {}", exception.getMessage());
         if (exception instanceof EnjoyTripApiException) {
+            logger.error("Exception 처리 ");
             return handleExceptionInternal(exception, null, new HttpHeaders(),
                     ((EnjoyTripApiException) exception).getStatus(), request);
         } else {

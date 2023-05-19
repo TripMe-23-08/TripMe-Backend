@@ -25,7 +25,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public JwtDto login(String email, String password) {
         UserDto userDto = authRepository.findByEmail(email);
-        if (BCrypt.checkpw(password, userDto.getPassword())) {
+        if (userDto!=null && BCrypt.checkpw(password, userDto.getPassword())) {
             Map<String, Object> claims = new HashMap<>();
             claims.put("userId", userDto.getId());
             claims.put("userEmail", userDto.getEmail());
