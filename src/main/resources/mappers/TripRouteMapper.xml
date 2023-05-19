@@ -4,12 +4,26 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team08.enjoytrip.tripRoute.model.repository.TripRouteRepository">
 
+    <resultMap type="placeDetailDto" id="placeDetailMap">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="longitude" property="longitude" />
+        <result column="latitude" property="latitude" />
+        <result column="address" property="address" />
+        <result column="category" property="category" />
+        <result column="img_url" property="imgUrl" />
+        <result column="img_url2" property="imgUrl2" />
+        <result column="sido_code" property="sidoCode" />
+        <result column="gugun_code" property="gugunCode" />
+    </resultMap>
+
     <resultMap type="tripPlaceDto" id="tripPlaceMap">
         <id column="id" property="id" />
         <result column="place_id" property="placeId" />
         <result column="trip_route_id" property="tripRouteId" />
         <result column="trip_day" property="tripDay" />
         <result column="trip_order" property="tripOrder" />
+        <association property="place" column="place_id" select="getDetailPlaceInfo" />
     </resultMap>
 
 
@@ -35,6 +49,10 @@
         where id = #{id}
     </select>
 
+    <select id="getDetailPlaceInfo" parameterType="int" resultMap="placeDetailMap">
+        SELECT * FROM place
+        WHERE id = #{place_id}
+    </select>
 
     <select id="getAll" resultMap="tripRouteMap">
         select id, name, created_at, user_id, trip_img_url
@@ -51,7 +69,7 @@
     <update id="update" parameterType="tripRouteDto">
         UPDATE tripRoute
         SET name = #{name}, trip_img_url = #{tripImgUrl}
-        WHERE id = #{id}
+        WHERE id = #{place_id}
     </update>
 
 

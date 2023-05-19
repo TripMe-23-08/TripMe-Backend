@@ -11,6 +11,8 @@ public class TripRouteDto {
     private String tripImgUrl;
     private List<TripPlaceDto> tripPlaces;
 
+
+
     public TripRouteDto() {
     }
 
