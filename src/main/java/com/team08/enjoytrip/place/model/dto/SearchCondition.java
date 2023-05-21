@@ -8,10 +8,13 @@ public class SearchCondition {
     private String sidoCode;
     private String gugunCode;
     private String category;
+    private String searchKeyword;
+
     @Builder
-    public SearchCondition(String sidoCode, String gugunCode, String category) {
+    public SearchCondition(String sidoCode, String gugunCode, String category, String searchKeyword) {
         this.sidoCode = sidoCode;
         this.gugunCode = gugunCode;
         this.category = category;
+        this.searchKeyword = searchKeyword;
     }
 }

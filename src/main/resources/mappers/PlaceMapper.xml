@@ -30,9 +30,13 @@
         <trim prefix="where" prefixOverrides="and">
             <if test="sidoCode != null">
                 sido_code = #{sidoCode}
-                <if test=" gugunCode != null">and gugun_code = #{gugunCode}</if>
+                <if test=" gugunCode != null">and gugun_code = #{gugunCode} </if>
             </if>
-            <if test="category != null">and category = #{category}</if>
+            <if test="category != null">and category = #{category} </if>
+            <if test="searchKeyword != null">
+                and name like concat('%', #{searchKeyword}, '%')
+                or address like concat('%', #{searchKeyword}, '%')
+            </if>
         </trim>
     </select>
 
