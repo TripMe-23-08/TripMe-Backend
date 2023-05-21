@@ -35,6 +35,7 @@ public class PostController {
         log.debug("[GET] /articles/{articleId} : " + articleId);
 
         PostDto articleDto = postService.searchArticle(articleId);
+        log.debug("PostDto "+articleDto);
         return new ResponseEntity<>(new ResponseDto("특정 글 조회", articleDto), HttpStatus.OK);
     }
 
@@ -50,6 +51,7 @@ public class PostController {
         log.debug("[GET] /articles : ");
         //TODO :글 목록 조회 조건 추가
         List<PostDto> articleDto = postService.searchArticles();
+        log.debug("List<PostDto>  "+articleDto);
         return new ResponseEntity<>(new ResponseDto("글 목록 조회", articleDto), HttpStatus.OK);
     }
     

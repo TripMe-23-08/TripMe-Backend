@@ -11,8 +11,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebMvcConfiguration implements WebMvcConfigurer {
-    private final List<String> PATTERNS = Arrays.asList("/users/**","/articles/**");
-
+    //TODO: http method check
+    private final List<String> PATTERNS = Arrays.asList("/users/**","/articles/**/edit","/like-places/**");
     private JwtInterceptor jwtInterceptor;
 
     public WebMvcConfiguration(JwtInterceptor jwtInterceptor) {

@@ -11,6 +11,7 @@ import lombok.ToString;
 public class PostDto {
     private int id;
     private int userId;
+    private String nickName;
     private Timestamp createdAt;
     private Timestamp updatedAt;
     private String title;
