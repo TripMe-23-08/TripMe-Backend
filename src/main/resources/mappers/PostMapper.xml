@@ -13,6 +13,7 @@
         <result column="content" property="content" />
         <result column="view" property="view" />
         <result column="triproute_id" property="tripRouteId" />
+        <result column="nick_name" property="nickName"/>
     </resultMap>
 
 
@@ -33,14 +34,14 @@
     </update>
 
     <select id="findById" parameterType="int" resultMap="postmap" >
-        SELECT *
-        FROM post
-        WHERE id=#{id}
+        SELECT post.*, user.nick_name
+        FROM post JOIN user on post.user_id = user.id
+        WHERE post.id=#{id}
     </select>
 
     <select id="findAll" resultMap="postmap" >
-        SELECT *
-        FROM post
+        SELECT post.*, user.nick_name
+        FROM post JOIN user on post.user_id = user.id
     </select>
 
     <delete id="delete" parameterType="int">

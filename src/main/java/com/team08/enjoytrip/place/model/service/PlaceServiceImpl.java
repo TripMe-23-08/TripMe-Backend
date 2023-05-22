@@ -22,6 +22,7 @@ public class PlaceServiceImpl implements PlaceService {
                 .sidoCode(condition.get("sido"))
                 .gugunCode(condition.get("gugun"))
                 .category(condition.get("category"))
+                .searchKeyword(condition.get("searchKeyword"))
                 .build();
         return placeRepository.findAll(searchCondition);
     }

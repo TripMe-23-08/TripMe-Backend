@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
-
+@CrossOrigin
 @Slf4j
 @RestController
 public class AuthController { // http://localhost:8080/api/v1/
