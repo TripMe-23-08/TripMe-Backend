@@ -28,7 +28,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         // TODO: setting pattern CORS
-        registry.addMapping("/**");
+        registry.addMapping("*");
     }
 
     @Override

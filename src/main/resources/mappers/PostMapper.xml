@@ -65,7 +65,7 @@
 
     <!--edit-->
     <select id="findById" parameterType="int" resultMap="postmap" >
-        SELECT post.*,  user.nick_name
+        SELECT post.*, user.nick_name
         <if test="triproute_id != null">
             , triproute.*
         </if>
@@ -87,7 +87,7 @@
         <trim prefix="set" suffixOverrides=",">
             <if test="title != null">title = #{title},</if>
             <if test="content != null">content = #{content},</if>
-            <if test="tripRouteId != null">triproute_id = #{tripRouteId},</if>
+            <if test="tripRoute != null">triproute_id = #{tripRoute.id},</if>
             updated_at = NOW()
         </trim>
         where id=#{id}
