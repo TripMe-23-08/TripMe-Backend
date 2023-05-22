@@ -11,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebMvcConfiguration implements WebMvcConfigurer {
-    private final List<String> PATTERNS = Arrays.asList("/users/**","/articles/**");
+    private final List<String> PATTERNS = Arrays.asList("/users/**","/articles/**/edi");
 
     private JwtInterceptor jwtInterceptor;
 
@@ -21,7 +21,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(jwtInterceptor).addPathPatterns(PATTERNS);
+       // registry.addInterceptor(jwtInterceptor).addPathPatterns(PATTERNS);
     }
 
     @Override
