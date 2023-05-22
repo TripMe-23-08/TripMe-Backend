@@ -4,6 +4,53 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team08.enjoytrip.post.model.repository.PostRepository">
     <!-- -->
+    <resultMap type="placeDetailDto" id="placeDetailMap">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="longitude" property="longitude" />
+        <result column="latitude" property="latitude" />
+        <result column="address" property="address" />
+        <result column="category" property="category" />
+        <result column="img_url" property="imgUrl" />
+        <result column="img_url2" property="imgUrl2" />
+        <result column="sido_code" property="sidoCode" />
+        <result column="gugun_code" property="gugunCode" />
+    </resultMap>
+
+    <select id="getDetailPlaceInfo" parameterType="int" resultMap="placeDetailMap">
+        SELECT * FROM place
+        WHERE id = #{place_id}
+    </select>
+
+    <resultMap type="tripPlaceDto" id="tripPlaceMap">
+        <id column="id" property="id" />
+        <result column="place_id" property="placeId" />
+        <result column="trip_route_id" property="tripRouteId" />
+        <result column="trip_day" property="tripDay" />
+        <result column="trip_order" property="tripOrder" />
+        <association property="place" column="place_id" select="getDetailPlaceInfo" />
+    </resultMap>
+
+    <select id="getAllPlacesByRouteId" parameterType="int" resultMap="tripPlaceMap">
+        SELECT id, place_id, trip_route_id, trip_day, trip_order FROM tripPlace
+        WHERE trip_route_id = #{id};
+    </select>
+
+    <resultMap type="tripRouteDto" id="tripRouteMap">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="created_at" property="createdAt" />
+        <result column="user_id" property="userId"/>
+        <result column="trip_img_url" property="tripImgUrl"/>
+        <collection property="tripPlaces" column="id" ofType="tripPlaceDto" javaType="ArrayList" select="getAllPlacesByRouteId"/>
+    </resultMap>
+
+    <select id="getTripRoute" parameterType="int" resultMap="tripRouteMap">
+        select id, name, created_at, user_id, trip_img_url
+        from tripRoute
+        where id = #{id}
+    </select>
+
     <resultMap type="postDto" id="postmap">
         <result column="id" property="id" />
         <result column="user_id" property="userId" />
@@ -12,14 +59,27 @@
         <result column="title" property="title" />
         <result column="content" property="content" />
         <result column="view" property="view" />
-        <result column="triproute_id" property="tripRouteId" />
         <result column="nick_name" property="nickName"/>
+        <association property="tripRoute" column="triproute_id" select="getTripRoute" />
     </resultMap>
 
+    <!--edit-->
+    <select id="findById" parameterType="int" resultMap="postmap" >
+        SELECT post.*, user.nick_name
+        <if test="triproute_id != null">
+            , triproute.*
+        </if>
+        FROM post JOIN user on post.user_id = user.id
+        <if test="triproute_id != null">
+            join triproute on post.triproute_id = triproute.id
+        </if>
+        WHERE post.id=#{articleId}
+    </select>
 
-    <insert id="save" parameterType="postDto" useGeneratedKeys="true" keyProperty="id">
+
+    <insert id="save" parameterType="PostRequestDto" >
         INSERT INTO post(user_id, created_at, updated_at, title, content, view, triproute_id)
-        VALUES (#{userId}, NOW(), NOW(), #{title}, #{content}, #{view}, #{tripRouteId});
+        VALUES (#{userId}, NOW(), NOW(), #{title}, #{content}, 1, #{tripRouteId});
     </insert>
 
     <update id="update" parameterType="postDto">
@@ -27,17 +87,14 @@
         <trim prefix="set" suffixOverrides=",">
             <if test="title != null">title = #{title},</if>
             <if test="content != null">content = #{content},</if>
-            <if test="tripRouteId != null">triproute_id = #{tripRouteId},</if>
+            <if test="tripRoute != null">triproute_id = #{tripRoute.id},</if>
             updated_at = NOW()
         </trim>
         where id=#{id}
     </update>
 
-    <select id="findById" parameterType="int" resultMap="postmap" >
-        SELECT post.*, user.nick_name
-        FROM post JOIN user on post.user_id = user.id
-        WHERE post.id=#{id}
-    </select>
+
+
 
     <select id="findAll" resultMap="postmap" >
         SELECT post.*, user.nick_name
