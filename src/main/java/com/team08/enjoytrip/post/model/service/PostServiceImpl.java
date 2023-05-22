@@ -2,6 +2,7 @@ package com.team08.enjoytrip.post.model.service;
 
 import com.team08.enjoytrip.post.exception.ArticleNotFoundException;
 import com.team08.enjoytrip.post.model.dto.PostDto;
+import com.team08.enjoytrip.post.model.dto.PostRequestDto;
 import com.team08.enjoytrip.post.model.repository.PostRepository;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
@@ -17,8 +18,9 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public void addArticle(PostDto postDto) throws ArticleNotFoundException {
-        postRepository.save(postDto);
+    public void addArticle(PostRequestDto postRequestDto) throws ArticleNotFoundException {
+
+        postRepository.save(postRequestDto);
     }
 
     @Override

@@ -1,10 +1,14 @@
 package com.team08.enjoytrip.post.controller;
 
+import com.team08.enjoytrip.auth.JwtUtil;
 import com.team08.enjoytrip.common.dto.ResponseDto;
 import com.team08.enjoytrip.post.model.dto.PostDto;
+import com.team08.enjoytrip.post.model.dto.PostRequestDto;
 import com.team08.enjoytrip.post.model.service.PostService;
 import java.util.List;
+import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,14 +18,18 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/articles")
 public class PostController {
     private PostService postService;
-
+    @Autowired
+    private JwtUtil jwtUtil;
     public PostController(PostService postService) {
         this.postService = postService;
     }
     @PostMapping
-    public ResponseEntity<ResponseDto> addArticle(@RequestBody PostDto postDto) {
-        log.debug("[POST] /articles : " + postDto);
-        postService.addArticle(postDto);
+    public ResponseEntity<ResponseDto> addArticle(@RequestHeader("Authorization") String token, @RequestBody PostRequestDto postRequestDto) {
+        log.debug("[POST] /articles : " + postRequestDto);
+        Map<String, Object>  claims = jwtUtil.getClaims(token);
+        //postRequestDto.setUserId((Integer) claims.get("userId"));
+        postRequestDto.setUserId(3);
+        postService.addArticle(postRequestDto);
         return new ResponseEntity<>(new ResponseDto("글 추가", null), HttpStatus.OK);
     }
     @PutMapping("/{articleId}")
