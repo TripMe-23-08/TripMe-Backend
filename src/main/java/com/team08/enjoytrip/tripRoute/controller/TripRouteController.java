@@ -40,7 +40,7 @@ public class TripRouteController {
 
     }
 
-    @PostMapping
+    @PostMapping//TODO: userID에 따른 TripRoute 받아야함
     public ResponseEntity<ResponseDto> create(@RequestBody TripRouteDto tripRouteDto) {
         log.debug("[POST] /trip-routes/");
 
