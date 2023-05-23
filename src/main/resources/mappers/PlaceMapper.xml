@@ -34,9 +34,23 @@
             </if>
             <if test="category != null">and category = #{category} </if>
             <if test="searchKeyword != null">
-                and name like concat('%', #{searchKeyword}, '%')
+                and (
+                name like concat('%', #{searchKeyword}, '%')
                 or address like concat('%', #{searchKeyword}, '%')
+                )
             </if>
+            <if test="onlyWithImage != null">
+                and img_url != ''
+            </if>
+            <if test="limitCount != null">
+                limit #{limitCount}
+            </if>
+
+            <if test="offset != null">
+                offset #{offset}
+            </if>
+
+
         </trim>
     </select>
 

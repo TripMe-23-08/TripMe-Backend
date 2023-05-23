@@ -23,6 +23,9 @@ public class PlaceServiceImpl implements PlaceService {
                 .gugunCode(condition.get("gugun"))
                 .category(condition.get("category"))
                 .searchKeyword(condition.get("searchKeyword"))
+                .limitCount(condition.get("limit") == null ? null : Integer.parseInt(condition.get("limit")))
+                .onlyWithImage(condition.get("image"))
+                .offset(condition.get("offset") == null ? null : Integer.parseInt(condition.get("offset")))
                 .build();
         return placeRepository.findAll(searchCondition);
     }

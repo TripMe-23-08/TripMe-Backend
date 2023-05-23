@@ -14,5 +14,6 @@ public interface TripRouteRepository {
     void update(TripRouteDto tripRouteDto);
     void delete(int id);
     List<TripPlaceDto> getAllPlacesByRouteId(int id);
+    int getRecentRouteId(int id);
 
 }

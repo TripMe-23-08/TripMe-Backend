@@ -9,12 +9,18 @@ public class SearchCondition {
     private String gugunCode;
     private String category;
     private String searchKeyword;
+    private Integer limitCount;
+    private String onlyWithImage;
+    private Integer offset;
 
     @Builder
-    public SearchCondition(String sidoCode, String gugunCode, String category, String searchKeyword) {
+    public SearchCondition(String sidoCode, String gugunCode, String category, String searchKeyword, Integer limitCount, String onlyWithImage, Integer offset) {
         this.sidoCode = sidoCode;
         this.gugunCode = gugunCode;
         this.category = category;
         this.searchKeyword = searchKeyword;
+        this.limitCount = limitCount;
+        this.onlyWithImage = onlyWithImage;
+        this.offset = offset;
     }
 }
