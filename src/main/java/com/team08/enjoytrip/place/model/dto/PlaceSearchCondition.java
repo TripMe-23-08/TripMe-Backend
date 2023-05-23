@@ -4,7 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-public class SearchCondition {
+public class PlaceSearchCondition {
     private String sidoCode;
     private String gugunCode;
     private String category;
@@ -14,7 +14,7 @@ public class SearchCondition {
     private Integer offset;
 
     @Builder
-    public SearchCondition(String sidoCode, String gugunCode, String category, String searchKeyword, Integer limitCount, String onlyWithImage, Integer offset) {
+    public PlaceSearchCondition(String sidoCode, String gugunCode, String category, String searchKeyword, Integer limitCount, String onlyWithImage, Integer offset) {
         this.sidoCode = sidoCode;
         this.gugunCode = gugunCode;
         this.category = category;

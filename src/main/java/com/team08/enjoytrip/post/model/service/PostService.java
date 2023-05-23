@@ -15,4 +15,5 @@ public interface PostService {
     List<PostDto> searchArticles();
 
     void delete(int articleId);
+
 }

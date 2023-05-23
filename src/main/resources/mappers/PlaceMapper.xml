@@ -24,7 +24,7 @@
         WHERE id=#{id}
     </select>
 
-    <select id="findAll" parameterType="searchCondition" resultMap="placemap" >
+    <select id="findAll" parameterType="PlaceSearchCondition" resultMap="placemap" >
         SELECT *
         FROM place
         <trim prefix="where" prefixOverrides="and">
