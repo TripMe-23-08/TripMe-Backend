@@ -78,4 +78,12 @@
         WHERE id = #{id}
     </delete>
 
+    <select id="getRecentRouteId" parameterType="int" resultType="int">
+        select id from triproute
+        where user_id = #{id}
+        order by created_at
+        desc
+        limit 1;
+    </select>
+
 </mapper>

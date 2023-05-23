@@ -32,13 +32,10 @@ public class TripRouteServiceImpl implements TripRouteService{
     @Override
     public void create(TripRouteDto tripRouteDto) {
         tripRouteRepository.create(tripRouteDto);
+    }
 
-        for (int i=0; i<tripRouteDto.getTripPlaces().size(); i++) {
-            TripPlaceDto tripPlaceDto = tripRouteDto.getTripPlaces().get(i);
-            tripPlaceDto.setTripRouteId(tripRouteDto.getId());
-            tripPlaceRepository.create(tripPlaceDto);
-        }
-
+    public void createPlace(TripPlaceDto tripPlaceDto) {
+        tripPlaceRepository.create(tripPlaceDto);
     }
 
     @Override
@@ -67,6 +64,11 @@ public class TripRouteServiceImpl implements TripRouteService{
         }
 
         tripRouteRepository.delete(id);
+    }
+
+    @Override
+    public int getRecentRouteId(int id) {       // recent route id from user id
+        return tripRouteRepository.getRecentRouteId(id);
     }
 
     @Override

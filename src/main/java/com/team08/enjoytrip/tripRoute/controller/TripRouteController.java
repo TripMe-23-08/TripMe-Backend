@@ -1,6 +1,7 @@
 package com.team08.enjoytrip.tripRoute.controller;
 
 import com.team08.enjoytrip.common.dto.ResponseDto;
+import com.team08.enjoytrip.tripRoute.model.dto.TripPlaceDto;
 import com.team08.enjoytrip.tripRoute.model.dto.TripRouteDto;
 import com.team08.enjoytrip.tripRoute.model.service.TripRouteService;
 import com.team08.enjoytrip.user.model.dto.UserDto;
@@ -10,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
+
 @CrossOrigin
 @Slf4j
 @RestController
@@ -41,18 +44,38 @@ public class TripRouteController {
     }
 
     @PostMapping//TODO: userID에 따른 TripRoute 받아야함
-    public ResponseEntity<ResponseDto> create(@RequestBody TripRouteDto tripRouteDto) {
+//    public ResponseEntity<ResponseDto> create(@RequestBody TripRouteDto tripRouteDto) {
+    public ResponseEntity<ResponseDto> create(@RequestBody Map<String, Object> payLoad) {
+        Map params = (Map) payLoad.get("params");
         log.debug("[POST] /trip-routes/");
 
-        // sample data for test
+        // set user information from the token HERE
         String testUrl = "example url path here";
         int testUserId = 3;
 
+        // create routeDto based on the request
+        TripRouteDto tripRouteDto = new TripRouteDto();
         tripRouteDto.setTripImgUrl(testUrl);
         tripRouteDto.setUserId(testUserId);
-
-        log.debug(tripRouteDto.toString());
+        tripRouteDto.setName((String) params.get("name"));
         tripRouteService.create(tripRouteDto);
+
+        // based on created route, create specific trip places
+        int routeId = tripRouteService.getRecentRouteId(testUserId);
+        List places = (List) params.get("tripPlaces");
+
+        for (int i=0; i<places.size(); ++i) {
+            Map placeParam = (Map) places.get(i);
+
+            TripPlaceDto tripPlaceDto = new TripPlaceDto();
+            tripPlaceDto.setTripRouteId(routeId);
+            tripPlaceDto.setPlaceId(Integer.parseInt(String.valueOf(placeParam.get("placeId"))));
+            tripPlaceDto.setTripDay(Integer.parseInt(String.valueOf(placeParam.get("tripDay"))));
+            tripPlaceDto.setTripOrder(Integer.parseInt(String.valueOf(placeParam.get("tripOrder"))));
+
+            tripRouteService.createPlace(tripPlaceDto);
+        }
+
         return new ResponseEntity<>(new ResponseDto("trip 생성 완료", null), HttpStatus.OK);
     }
 
