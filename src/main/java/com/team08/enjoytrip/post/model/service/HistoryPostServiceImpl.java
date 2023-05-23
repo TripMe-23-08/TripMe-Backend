@@ -7,6 +7,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class HistoryPostServiceImpl implements HistoryPostService {
     private HistoryPostRepository historyPostRepository;
+
+    public HistoryPostServiceImpl(HistoryPostRepository historyPostRepository) {
+        this.historyPostRepository = historyPostRepository;
+    }
+
     @Override
     public void setPostHistory(int userId, int postId) {
         // update post history

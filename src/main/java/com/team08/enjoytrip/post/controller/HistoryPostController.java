@@ -24,11 +24,11 @@ public class HistoryPostController {
     @PostMapping("/articles/history")
     public ResponseEntity<ResponseDto> setHistory(@RequestBody Map<String, Object> payLoad) {
         log.debug("[POST] /articles/history : ");
+
         Map params = (Map) payLoad.get("params");
-        log.debug("params : " + params.toString());
         String userId = String.valueOf(params.get("userId"));
         String postId = String.valueOf(params.get("postId"));
-        log.debug("uid, pid = " + userId + ", " + postId);
+
         historyPostService.setPostHistory(Integer.parseInt(userId), Integer.parseInt(postId));
 
         return new ResponseEntity<>(new ResponseDto("Post 기록 추가", null), HttpStatus.OK);
