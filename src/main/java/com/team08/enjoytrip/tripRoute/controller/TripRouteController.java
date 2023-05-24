@@ -24,6 +24,16 @@ public class TripRouteController {
         this.tripRouteService = tripRouteService;
     }
 
+    @GetMapping("user/{userId}")
+    public ResponseEntity<ResponseDto> getAllUser(@PathVariable int userId) {
+        log.debug("[GET] /trip-routes/");
+
+        List<TripRouteDto> tripRouteDtoList = tripRouteService.getAllUser(userId);
+
+        return new ResponseEntity<>(new ResponseDto("모든 trip route 조회 완료", tripRouteDtoList), HttpStatus.OK);
+    }
+
+
     @GetMapping("/{id}")
     public ResponseEntity<ResponseDto> get(@PathVariable int id) {
         log.debug("[GET] /trip-routes/" + id);
