@@ -110,11 +110,13 @@
     </select>
 
     <select id="findAllUserHistory" resultMap="postmap" parameterType="int">
-        select distinct post.*, user.nick_name
-        from post
+        select post.*, user.nick_name
+        from posthistory
+        join post on posthistory.post_id = post.id
         join user on post.user_id = user.id
-        join posthistory on posthistory.post_id = post.id
         where user.id = #{userId}
+        group by post.id, user.id
+        order by max(posthistory.last_visit) desc;
     </select>
 
 
