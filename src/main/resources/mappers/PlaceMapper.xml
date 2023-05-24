@@ -54,5 +54,13 @@
         </trim>
     </select>
 
+    <select id="findAllUserHistory" parameterType="int" resultMap="placemap" >
+        select place.*
+        from place
+        join placehistory on placehistory.place_id = place.id
+        where placehistory.user_id = #{userId}
+        group by place.id
+        order by max(placehistory.last_visit) desc;
+    </select>
 
 </mapper>

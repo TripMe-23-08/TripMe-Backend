@@ -7,5 +7,6 @@ import java.util.Map;
 
 public interface PlaceService {
     List<PlaceDto> getAllPlaces(Map<String, String> condition);
+    List<PlaceDto> getAllPlacesUserHistory(int userId);
     PlaceDto getPlace(int id);
 }

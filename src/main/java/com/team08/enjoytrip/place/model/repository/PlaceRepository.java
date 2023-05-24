@@ -11,5 +11,6 @@ import java.util.List;
 public interface PlaceRepository {
     PlaceDto findById(int id);
     List<PlaceDto> findAll(PlaceSearchCondition searchCondition);
+    List<PlaceDto> findAllUserHistory(int userId);
 
 }

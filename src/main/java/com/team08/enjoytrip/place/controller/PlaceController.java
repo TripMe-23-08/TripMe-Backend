@@ -29,6 +29,14 @@ public class PlaceController {
         return new ResponseEntity<>(new ResponseDto("모든 관광지 조회: searchCondition", allPlaces), HttpStatus.OK);
     }
 
+    @GetMapping("/user-history/{userId}")
+    public ResponseEntity<ResponseDto> searchAllPlaces(@PathVariable int userId) {
+        log.debug("[GET] /places/user-history/ "+userId);
+
+        List<PlaceDto> allPlaces = placeService.getAllPlacesUserHistory(userId);
+        return new ResponseEntity<>(new ResponseDto("유저 히스토리 장소 조회 완료", allPlaces), HttpStatus.OK);
+    }
+
     @GetMapping("/{placeId}")
     public ResponseEntity<ResponseDto> searchPlaceInfo(@PathVariable int placeId) {
         log.debug("[GET] /places/" + placeId);

@@ -31,6 +31,11 @@ public class PlaceServiceImpl implements PlaceService {
     }
 
     @Override
+    public List<PlaceDto> getAllPlacesUserHistory(int userId) {
+        return placeRepository.findAllUserHistory(userId);
+    }
+
+    @Override
     public PlaceDto getPlace(int id) {
         return placeRepository.findById(id);
     }
