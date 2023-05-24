@@ -4,6 +4,7 @@ import com.team08.enjoytrip.auth.JwtUtil;
 import com.team08.enjoytrip.common.dto.ResponseDto;
 import com.team08.enjoytrip.post.model.dto.PostDto;
 import com.team08.enjoytrip.post.model.dto.PostRequestDto;
+import com.team08.enjoytrip.post.model.service.HistoryPostService;
 import com.team08.enjoytrip.post.model.service.PostService;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/articles")
 public class PostController {
     private PostService postService;
+
     @Autowired
     private JwtUtil jwtUtil;
     public PostController(PostService postService) {
@@ -62,6 +64,5 @@ public class PostController {
         log.debug("List<PostDto>  "+articleDto);
         return new ResponseEntity<>(new ResponseDto("글 목록 조회", articleDto), HttpStatus.OK);
     }
-    
 
 }

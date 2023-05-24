@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team08.enjoytrip.post.model.repository.HistoryPostRepository">
+
+    <insert id="setPostHistory" parameterType="map" >
+        INSERT INTO posthistory(user_id, post_id, last_visit)
+        VALUES (#{user_id}, #{post_id}, NOW())
+    </insert>
+
+</mapper>

@@ -2,7 +2,6 @@ package com.team08.enjoytrip.place.controller;
 
 import com.team08.enjoytrip.common.dto.ResponseDto;
 import com.team08.enjoytrip.place.model.dto.PlaceDto;
-import com.team08.enjoytrip.place.model.dto.SearchCondition;
 import com.team08.enjoytrip.place.model.service.PlaceService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
