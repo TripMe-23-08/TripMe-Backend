@@ -16,6 +16,8 @@
         <result column="img_url2" property="imgUrl2" />
         <result column="sido_code" property="sidoCode" />
         <result column="gugun_code" property="gugunCode" />
+        <result column="overview" property="overview"/>
+
     </resultMap>
 
 
