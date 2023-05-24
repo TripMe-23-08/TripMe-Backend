@@ -16,4 +16,5 @@ public interface PostRepository {
     List<PostDto> findAll(); //TODO: searchCondition 추가
 
     void delete(int articleId);
+
 }

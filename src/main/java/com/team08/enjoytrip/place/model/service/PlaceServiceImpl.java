@@ -1,7 +1,7 @@
 package com.team08.enjoytrip.place.model.service;
 
 import com.team08.enjoytrip.place.model.dto.PlaceDto;
-import com.team08.enjoytrip.place.model.dto.SearchCondition;
+import com.team08.enjoytrip.place.model.dto.PlaceSearchCondition;
 import com.team08.enjoytrip.place.model.repository.PlaceRepository;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +18,7 @@ public class PlaceServiceImpl implements PlaceService {
 
     @Override
     public List<PlaceDto> getAllPlaces(Map<String, String> condition) {
-        SearchCondition searchCondition = SearchCondition.builder()
+        PlaceSearchCondition searchCondition = PlaceSearchCondition.builder()
                 .sidoCode(condition.get("sido"))
                 .gugunCode(condition.get("gugun"))
                 .category(condition.get("category"))

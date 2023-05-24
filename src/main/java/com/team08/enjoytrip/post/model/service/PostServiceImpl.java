@@ -51,7 +51,6 @@ public class PostServiceImpl implements PostService {
     }
 
 
-
     private boolean isExist(PostDto postDto) {
         PostDto data = postRepository.findById(postDto.getId());
         if (data != null) {

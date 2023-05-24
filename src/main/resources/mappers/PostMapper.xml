@@ -93,9 +93,6 @@
         where id=#{id}
     </update>
 
-
-
-
     <select id="findAll" resultMap="postmap" >
         SELECT post.*, user.nick_name
         FROM post JOIN user on post.user_id = user.id
@@ -105,5 +102,8 @@
         DELETE from post
         where id=#{id}
     </delete>
+
+
+
 
 </mapper>
