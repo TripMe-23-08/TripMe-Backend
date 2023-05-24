@@ -13,6 +13,9 @@ public interface PostService {
     PostDto searchArticle(int articleId) throws ArticleNotFoundException;
 
     List<PostDto> searchArticles();
+    List<PostDto> searchArticlesUser(int userId);
+    List<PostDto> searchArticlesUserHistory(int userId);
+
 
     void delete(int articleId);
 

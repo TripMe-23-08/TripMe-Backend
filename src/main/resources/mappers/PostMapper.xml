@@ -103,6 +103,20 @@
         where id=#{id}
     </delete>
 
+    <select id="findAllUser" resultMap="postmap" parameterType="int">
+        SELECT post.*, user.nick_name
+        FROM post JOIN user on post.user_id = user.id
+        where user_id = #{userId}
+    </select>
+
+    <select id="findAllUserHistory" resultMap="postmap" parameterType="int">
+        select distinct post.*, user.nick_name
+        from post
+        join user on post.user_id = user.id
+        join posthistory on posthistory.post_id = post.id
+        where user.id = #{userId}
+    </select>
+
 
 
 

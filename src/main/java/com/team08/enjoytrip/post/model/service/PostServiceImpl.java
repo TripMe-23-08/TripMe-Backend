@@ -46,6 +46,16 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public List<PostDto> searchArticlesUser(int userId) {
+        return postRepository.findAllUser(userId);
+    }
+
+    @Override
+    public List<PostDto> searchArticlesUserHistory(int userId) {
+        return postRepository.findAllUserHistory(userId);
+    }
+
+    @Override
     public void delete(int articleId) {
         postRepository.delete(articleId);
     }

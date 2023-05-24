@@ -65,4 +65,22 @@ public class PostController {
         return new ResponseEntity<>(new ResponseDto("글 목록 조회", articleDto), HttpStatus.OK);
     }
 
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<ResponseDto> searchArticlesUser(@PathVariable int userId) {
+        log.debug("[GET] /articles/user/" + userId);
+        //TODO :글 목록 조회 조건 추가
+        List<PostDto> articleDto = postService.searchArticlesUser(userId);
+        log.debug("List<PostDto>  "+articleDto);
+        return new ResponseEntity<>(new ResponseDto("유저 글 목록 조회", articleDto), HttpStatus.OK);
+    }
+
+    @GetMapping("/user-history/{userId}")
+    public ResponseEntity<ResponseDto> searchArticlesUserHistory(@PathVariable int userId) {
+        log.debug("[GET] /articles/user-history/" + userId);
+        //TODO :글 목록 조회 조건 추가
+        List<PostDto> articleDto = postService.searchArticlesUserHistory(userId);
+        log.debug("List<PostDto>  "+articleDto);
+        return new ResponseEntity<>(new ResponseDto("유저 히스토리 글 목록 조회", articleDto), HttpStatus.OK);
+    }
+
 }
