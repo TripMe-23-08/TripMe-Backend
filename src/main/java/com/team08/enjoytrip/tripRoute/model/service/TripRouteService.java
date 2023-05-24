@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface TripRouteService {
     List<TripRouteDto> getAll();
+    List<TripRouteDto> getAllUser(int userId);
     TripRouteDto get(int id);
     void create(TripRouteDto tripRouteDto);
     void createPlace(TripPlaceDto tripPlaceDto);

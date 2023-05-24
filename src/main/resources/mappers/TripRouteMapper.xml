@@ -59,6 +59,11 @@
         from tripRoute
     </select>
 
+    <select id="getAllUser" parameterType="int" resultMap="tripRouteMap">
+        select id, name, created_at, user_id, trip_img_url
+        from tripRoute
+        where user_id = #{userId}
+    </select>
 
     <select id="getAllPlacesByRouteId" parameterType="int" resultMap="tripPlaceMap">
         SELECT id, place_id, trip_route_id, trip_day, trip_order FROM tripPlace

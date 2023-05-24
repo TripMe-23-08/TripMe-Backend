@@ -9,6 +9,7 @@ import java.util.List;
 @Mapper
 public interface TripRouteRepository {
     List<TripRouteDto> getAll();
+    List<TripRouteDto> getAllUser(int userId);
     TripRouteDto get(int id);
     void create(TripRouteDto tripRouteDto);
     void update(TripRouteDto tripRouteDto);
