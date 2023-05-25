@@ -1,5 +1,6 @@
 package com.team08.enjoytrip.post.model.service;
 
+import com.team08.enjoytrip.common.ImageManagementService;
 import com.team08.enjoytrip.post.exception.ArticleNotFoundException;
 import com.team08.enjoytrip.post.model.dto.FileInfoDto;
 import com.team08.enjoytrip.post.model.dto.PostDto;
@@ -9,6 +10,7 @@ import com.team08.enjoytrip.post.model.repository.HistoryPostRepository;
 import com.team08.enjoytrip.post.model.repository.PostRepository;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -16,7 +18,8 @@ import org.springframework.stereotype.Service;
 public class PostServiceImpl implements PostService {
     private PostRepository postRepository;
     private HistoryPostRepository historyPostRepository;
-
+    @Autowired
+    private ImageManagementService imageManagementService;
     public PostServiceImpl(PostRepository postRepository, HistoryPostRepository historyPostRepository) {
         this.postRepository = postRepository;
         this.historyPostRepository = historyPostRepository;
@@ -26,6 +29,9 @@ public class PostServiceImpl implements PostService {
     public void addArticle(PostCreateRequestDto postCreateRequestDto) throws ArticleNotFoundException {
 
         postRepository.save(postCreateRequestDto);
+
+//        List<String> ImageURLS = imageManagementService
+//                .hospitalImageUpload(imageFiles, "hospitalImage", hospitalId);
 
         List<FileInfoDto> fileInfos = postCreateRequestDto.getFileInfos();
         if (fileInfos != null && !fileInfos.isEmpty()) {
