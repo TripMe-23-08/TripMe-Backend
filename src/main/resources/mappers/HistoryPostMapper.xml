@@ -9,4 +9,9 @@
         VALUES (#{user_id}, #{post_id}, NOW())
     </insert>
 
+    <delete id="delete" parameterType="int">
+        DELETE from posthistory
+        where post_id=#{postId}
+    </delete>
+
 </mapper>

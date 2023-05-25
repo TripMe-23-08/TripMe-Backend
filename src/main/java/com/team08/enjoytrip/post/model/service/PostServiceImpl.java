@@ -3,6 +3,7 @@ package com.team08.enjoytrip.post.model.service;
 import com.team08.enjoytrip.post.exception.ArticleNotFoundException;
 import com.team08.enjoytrip.post.model.dto.PostDto;
 import com.team08.enjoytrip.post.model.dto.PostRequestDto;
+import com.team08.enjoytrip.post.model.repository.HistoryPostRepository;
 import com.team08.enjoytrip.post.model.repository.PostRepository;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
@@ -12,9 +13,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class PostServiceImpl implements PostService {
     private PostRepository postRepository;
+    private HistoryPostRepository historyPostRepository;
 
-    public PostServiceImpl(PostRepository postRepository) {
+    public PostServiceImpl(PostRepository postRepository, HistoryPostRepository historyPostRepository) {
         this.postRepository = postRepository;
+        this.historyPostRepository = historyPostRepository;
     }
 
     @Override
@@ -58,6 +61,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public void delete(int articleId) {
         postRepository.delete(articleId);
+        historyPostRepository.delete(articleId);
     }
 
 
