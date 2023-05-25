@@ -61,17 +61,17 @@ public class TripRouteController {
 
         // set user information from the token HERE
         String testUrl = "example url path here";
-        int testUserId = 3;
+        int userId = Integer.parseInt(String.valueOf(params.get("user_id")));
 
         // create routeDto based on the request
         TripRouteDto tripRouteDto = new TripRouteDto();
         tripRouteDto.setTripImgUrl(testUrl);
-        tripRouteDto.setUserId(testUserId);
+        tripRouteDto.setUserId(userId);
         tripRouteDto.setName((String) params.get("name"));
         tripRouteService.create(tripRouteDto);
 
         // based on created route, create specific trip places
-        int routeId = tripRouteService.getRecentRouteId(testUserId);
+        int routeId = tripRouteService.getRecentRouteId(userId);
         List places = (List) params.get("tripPlaces");
 
         for (int i=0; i<places.size(); ++i) {
