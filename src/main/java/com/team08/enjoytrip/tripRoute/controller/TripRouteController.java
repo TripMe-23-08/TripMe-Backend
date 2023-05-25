@@ -32,6 +32,14 @@ public class TripRouteController {
 
         return new ResponseEntity<>(new ResponseDto("모든 trip route 조회 완료", tripRouteDtoList), HttpStatus.OK);
     }
+    @GetMapping("favorite/{routeId}")
+    public ResponseEntity<ResponseDto> getLikeRoute(@PathVariable int routeId) {
+        log.debug("[GET] /trip-routes/favorite/"+routeId);
+
+        tripRouteService.hitFavorite(routeId);
+
+        return new ResponseEntity<>(new ResponseDto("route favorite 완료", null), HttpStatus.OK);
+    }
 
 
     @GetMapping("/{id}")
@@ -60,7 +68,7 @@ public class TripRouteController {
         log.debug("[POST] /trip-routes/");
 
         // set user information from the token HERE
-        String testUrl = "example url path here";
+        String testUrl = String.valueOf(params.get("trip_img_url"));
         int userId = Integer.parseInt(String.valueOf(params.get("user_id")));
 
         // create routeDto based on the request

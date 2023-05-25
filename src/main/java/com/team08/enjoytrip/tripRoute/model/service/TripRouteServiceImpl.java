@@ -61,6 +61,11 @@ public class TripRouteServiceImpl implements TripRouteService{
     }
 
     @Override
+    public void hitFavorite(int id) {
+        tripRouteRepository.hitFavorite(id);
+    }
+
+    @Override
     public void delete(int id) {
         TripRouteDto tripRouteDto = tripRouteRepository.get(id);
         for (int i=0; i<tripRouteDto.getTripPlaces().size(); ++i) {

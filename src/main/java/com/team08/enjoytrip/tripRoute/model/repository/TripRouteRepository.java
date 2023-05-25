@@ -13,8 +13,10 @@ public interface TripRouteRepository {
     TripRouteDto get(int id);
     void create(TripRouteDto tripRouteDto);
     void update(TripRouteDto tripRouteDto);
+    void hitFavorite(int id);
     void delete(int id);
     List<TripPlaceDto> getAllPlacesByRouteId(int id);
     int getRecentRouteId(int id);
+
 
 }

@@ -18,17 +18,19 @@ public class TripRouteDto {
     private Timestamp createdAt;
     private int userId;
     private String tripImgUrl;
+    private int favorite;
     private List<TripPlaceDto> tripPlaces;
 
 
    @Builder
-    public TripRouteDto(int id, String name, Timestamp createdAt, int userId, String tripImgUrl,
+    public TripRouteDto(int id, String name, Timestamp createdAt, int userId, String tripImgUrl, int favorite,
                         List<TripPlaceDto> tripPlaces) {
         this.id = id;
         this.name = name;
         this.createdAt = createdAt;
         this.userId = userId;
         this.tripImgUrl = tripImgUrl;
+        this.favorite = favorite;
         this.tripPlaces = tripPlaces;
     }
 }

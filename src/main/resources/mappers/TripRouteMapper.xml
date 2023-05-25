@@ -33,6 +33,7 @@
         <result column="created_at" property="createdAt" />
         <result column="user_id" property="userId"/>
         <result column="trip_img_url" property="tripImgUrl"/>
+        <result column="favorite" property="favorite"/>
         <collection property="tripPlaces" column="id" ofType="tripPlaceDto" javaType="ArrayList" select="getAllPlacesByRouteId"/>
     </resultMap>
 
@@ -44,7 +45,7 @@
 
 
     <select id="get" parameterType="int" resultMap="tripRouteMap">
-        select id, name, created_at, user_id, trip_img_url
+        select id, name, created_at, user_id, trip_img_url, favorite
         from tripRoute
         where id = #{id}
     </select>
@@ -55,19 +56,21 @@
     </select>
 
     <select id="getAll" resultMap="tripRouteMap">
-        select id, name, created_at, user_id, trip_img_url
+        select id, name, created_at, user_id, trip_img_url, favorite
         from tripRoute
     </select>
 
     <select id="getAllUser" parameterType="int" resultMap="tripRouteMap">
-        select id, name, created_at, user_id, trip_img_url
+        select id, name, created_at, user_id, trip_img_url, favorite
         from tripRoute
         where user_id = #{userId}
+        order by favorite desc
+
     </select>
 
     <select id="getAllPlacesByRouteId" parameterType="int" resultMap="tripPlaceMap">
         SELECT id, place_id, trip_route_id, trip_day, trip_order FROM tripPlace
-        WHERE trip_route_id = #{id};
+        WHERE trip_route_id = #{id}
     </select>
 
 
@@ -75,6 +78,12 @@
         UPDATE tripRoute
         SET name = #{name}, trip_img_url = #{tripImgUrl}
         WHERE id = #{place_id}
+    </update>
+
+    <update id="hitFavorite" parameterType="int">
+        update triproute
+        set favorite = if(favorite = 0, 1, 0)
+        where id = #{id};
     </update>
 
 

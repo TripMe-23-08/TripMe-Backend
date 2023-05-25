@@ -12,6 +12,7 @@ public interface TripRouteService {
     void create(TripRouteDto tripRouteDto);
     void createPlace(TripPlaceDto tripPlaceDto);
     void update(TripRouteDto tripRouteDto);
+    void hitFavorite(int id);
     void delete(int id);
     int getRecentRouteId(int id);
 
