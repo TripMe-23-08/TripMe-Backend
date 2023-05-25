@@ -113,7 +113,7 @@
         select post.*, user.nick_name
         from posthistory
         join post on posthistory.post_id = post.id
-        join user on post.user_id = user.id
+        join user on posthistory.user_id = user.id
         where user.id = #{userId}
         group by post.id, user.id
         order by max(posthistory.last_visit) desc;

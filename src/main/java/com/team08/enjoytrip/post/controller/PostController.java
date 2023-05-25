@@ -29,8 +29,8 @@ public class PostController {
     public ResponseEntity<ResponseDto> addArticle(@RequestHeader("Authorization") String token, @RequestBody PostRequestDto postRequestDto) {
         log.debug("[POST] /articles : " + postRequestDto);
         Map<String, Object>  claims = jwtUtil.getClaims(token);
-        //postRequestDto.setUserId((Integer) claims.get("userId"));
-        postRequestDto.setUserId(3);
+        postRequestDto.setUserId((Integer) claims.get("userId"));
+//        postRequestDto.setUserId(3);
         postService.addArticle(postRequestDto);
         return new ResponseEntity<>(new ResponseDto("글 추가", null), HttpStatus.OK);
     }
