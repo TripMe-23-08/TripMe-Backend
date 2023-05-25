@@ -50,7 +50,9 @@
         from tripRoute
         where id = #{id}
     </select>
-
+    <resultMap type="postDto" id="viewArticle" extends="postmap">
+        <collection property="fileInfos" column="id" javaType="list" ofType="fileInfoDto" select="fileInfoList"/>
+    </resultMap>
     <resultMap type="postDto" id="postmap">
         <result column="id" property="id" />
         <result column="user_id" property="userId" />
@@ -63,8 +65,23 @@
         <association property="tripRoute" column="triproute_id" select="getTripRoute" />
     </resultMap>
 
+
+
+    <resultMap type="fileInfoDto" id="file">
+        <result column="save_folder" property="saveFolder"/>
+        <result column="original_file" property="originalFile"/>
+        <result column="save_file" property="saveFile"/>
+    </resultMap>
+    <select id="fileInfoList" resultMap="file">
+        select save_folder, original_file, save_file
+        from postimg
+        where post_id = #{postId}
+    </select>
+
+
+
     <!--edit-->
-    <select id="findById" parameterType="int" resultMap="postmap" >
+    <select id="findById" parameterType="int" resultMap="viewArticle" >
         SELECT post.*, user.nick_name
         <if test="triproute_id != null">
             , triproute.*
@@ -104,7 +121,7 @@
         where id=#{id}
     </update>
 
-    <select id="findAll" resultMap="postmap" >
+    <select id="findAll" resultMap="viewArticle" >
         SELECT post.*, user.nick_name
         FROM post JOIN user on post.user_id = user.id
     </select>
@@ -114,13 +131,13 @@
         where id=#{id}
     </delete>
 
-    <select id="findAllUser" resultMap="postmap" parameterType="int">
+    <select id="findAllUser" resultMap="viewArticle" parameterType="int">
         SELECT post.*, user.nick_name
         FROM post JOIN user on post.user_id = user.id
         where user_id = #{userId}
     </select>
 
-    <select id="findAllUserHistory" resultMap="postmap" parameterType="int">
+    <select id="findAllUserHistory" resultMap="viewArticle" parameterType="int">
         select post.*, user.nick_name
         from posthistory
         join post on posthistory.post_id = post.id
