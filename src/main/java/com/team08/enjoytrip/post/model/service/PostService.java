@@ -2,11 +2,11 @@ package com.team08.enjoytrip.post.model.service;
 
 import com.team08.enjoytrip.post.exception.ArticleNotFoundException;
 import com.team08.enjoytrip.post.model.dto.PostDto;
-import com.team08.enjoytrip.post.model.dto.PostRequestDto;
+import com.team08.enjoytrip.post.model.dto.PostCreateRequestDto;
 import java.util.List;
 
 public interface PostService {
-    void addArticle(PostRequestDto postRequestDto) throws ArticleNotFoundException;
+    void addArticle(PostCreateRequestDto postCreateRequestDto) throws ArticleNotFoundException;
 
     void modifyArticle(PostDto postDto) throws ArticleNotFoundException;
 

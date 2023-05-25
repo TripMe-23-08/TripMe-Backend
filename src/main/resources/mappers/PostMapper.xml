@@ -77,7 +77,7 @@
     </select>
 
 
-    <insert id="save" parameterType="PostRequestDto" >
+    <insert id="save" parameterType="PostCreateRequestDto" >
         INSERT INTO post(user_id, created_at, updated_at, title, content, view, triproute_id)
         VALUES (#{userId}, NOW(), NOW(), #{title}, #{content}, 1, #{tripRouteId});
     </insert>

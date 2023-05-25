@@ -1,13 +1,13 @@
 package com.team08.enjoytrip.post.model.repository;
 
 import com.team08.enjoytrip.post.model.dto.PostDto;
-import com.team08.enjoytrip.post.model.dto.PostRequestDto;
+import com.team08.enjoytrip.post.model.dto.PostCreateRequestDto;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface PostRepository {
-    void save(PostRequestDto postRequestDto);
+    void save(PostCreateRequestDto postCreateRequestDto);
 
     void update(PostDto postDto);
 
