@@ -18,4 +18,5 @@ public interface PostRepository {
     List<PostDto> findAllUserHistory(int userId);
     void delete(int articleId);
 
+    void registerFile(PostCreateRequestDto postCreateRequestDto);
 }

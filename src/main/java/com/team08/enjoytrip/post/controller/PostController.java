@@ -70,7 +70,7 @@ public class PostController {
                 }
                 fileInfos.add(fileInfoDto);
             }
-           // post.setFiles(fileInfos);
+            post.setFileInfos(fileInfos);
         }
 
         postService.addArticle(post);

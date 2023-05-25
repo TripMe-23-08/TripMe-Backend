@@ -9,9 +9,10 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class PostCreateRequestDto {
+    private int postId;
     private String title;
     private String content;
     private int tripRouteId;
     private int userId; // jwt에서 받아옴
-    //private List<FileInfoDto> files;
+    private List<FileInfoDto> fileInfos;
 }

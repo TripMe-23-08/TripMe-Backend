@@ -79,7 +79,18 @@
 
     <insert id="save" parameterType="PostCreateRequestDto" >
         INSERT INTO post(user_id, created_at, updated_at, title, content, view, triproute_id)
-        VALUES (#{userId}, NOW(), NOW(), #{title}, #{content}, 1, #{tripRouteId});
+        VALUES (#{userId}, NOW(), NOW(), #{title}, #{content}, 1, #{tripRouteId})
+        <selectKey resultType="int" keyProperty="postId" order="AFTER">
+            select last_insert_id()
+        </selectKey>
+    </insert>
+
+    <insert id="registerFile" parameterType="PostCreateRequestDto">
+        insert into postimg (post_id, save_folder, original_file, save_file)
+        values
+        <foreach collection="fileInfos" item="fileinfo" separator=" , ">
+            (#{postId}, #{fileinfo.saveFolder}, #{fileinfo.originalFile}, #{fileinfo.saveFile})
+        </foreach>
     </insert>
 
     <update id="update" parameterType="postDto">

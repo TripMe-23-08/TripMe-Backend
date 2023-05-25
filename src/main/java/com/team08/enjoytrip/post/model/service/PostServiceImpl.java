@@ -1,6 +1,7 @@
 package com.team08.enjoytrip.post.model.service;
 
 import com.team08.enjoytrip.post.exception.ArticleNotFoundException;
+import com.team08.enjoytrip.post.model.dto.FileInfoDto;
 import com.team08.enjoytrip.post.model.dto.PostDto;
 import com.team08.enjoytrip.post.model.dto.PostCreateRequestDto;
 import com.team08.enjoytrip.post.model.repository.PostRepository;
@@ -21,6 +22,11 @@ public class PostServiceImpl implements PostService {
     public void addArticle(PostCreateRequestDto postCreateRequestDto) throws ArticleNotFoundException {
 
         postRepository.save(postCreateRequestDto);
+
+        List<FileInfoDto> fileInfos = postCreateRequestDto.getFileInfos();
+        if (fileInfos != null && !fileInfos.isEmpty()) {
+            postRepository.registerFile(postCreateRequestDto);
+        }
     }
 
     @Override
