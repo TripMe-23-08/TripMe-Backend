@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -82,6 +84,8 @@ public class PostController {
         postService.modifyArticle(postDto);
         return new ResponseEntity<>(new ResponseDto("글 수정", null), HttpStatus.OK);
     }
+
+    @Cacheable(value="post-single", key="#articleId")
     @GetMapping("/{articleId}")
     public ResponseEntity<ResponseDto> searchArticle(@PathVariable int articleId) {
         log.debug("[GET] /articles/{articleId} : " + articleId);
@@ -91,6 +95,7 @@ public class PostController {
         return new ResponseEntity<>(new ResponseDto("특정 글 조회", articleDto), HttpStatus.OK);
     }
 
+    @CacheEvict(value="post-single",key="#articleId")
     @DeleteMapping("/{articleId}")
     public ResponseEntity<ResponseDto> deleteArticle(@PathVariable int articleId) {
         log.debug("[DELETE] /articles/{articleId} : " + articleId);

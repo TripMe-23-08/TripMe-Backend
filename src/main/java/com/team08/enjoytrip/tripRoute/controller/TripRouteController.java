@@ -6,6 +6,7 @@ import com.team08.enjoytrip.tripRoute.model.dto.TripRouteDto;
 import com.team08.enjoytrip.tripRoute.model.service.TripRouteService;
 import com.team08.enjoytrip.user.model.dto.UserDto;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +42,7 @@ public class TripRouteController {
         return new ResponseEntity<>(new ResponseDto("route favorite 완료", null), HttpStatus.OK);
     }
 
-
+    @Cacheable(value="route-multi", key="#id")
     @GetMapping("/{id}")
     public ResponseEntity<ResponseDto> get(@PathVariable int id) {
         log.debug("[GET] /trip-routes/" + id);
